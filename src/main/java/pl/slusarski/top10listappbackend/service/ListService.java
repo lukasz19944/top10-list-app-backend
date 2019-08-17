@@ -3,6 +3,7 @@ package pl.slusarski.top10listappbackend.service;
 import org.springframework.stereotype.Service;
 import pl.slusarski.top10listappbackend.domain.Item;
 import pl.slusarski.top10listappbackend.domain.List;
+import pl.slusarski.top10listappbackend.exception.ListNotFoundException;
 import pl.slusarski.top10listappbackend.repository.ItemRepository;
 import pl.slusarski.top10listappbackend.repository.ListRepository;
 
@@ -24,7 +25,8 @@ public class ListService {
     }
 
     public List findListById(Long id) {
-        Optional<List> listOptional = listRepository.findById(id);
+        Optional<List> listOptional = Optional.of(listRepository.findById(id)
+                .orElseThrow(() -> new ListNotFoundException("There is no such list: ID-" + id)));
 
         return listOptional.get();
     }
