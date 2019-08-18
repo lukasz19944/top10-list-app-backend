@@ -17,7 +17,7 @@ public class ErrorService {
             Map<String, String> errorMap = new HashMap<>();
 
             for (FieldError error : result.getFieldErrors()) {
-                String field = error.getField();
+                String field = error.getField().replaceAll("[^a-z0-9A-Z_]+", "");;
                 errorMap.put(field, error.getDefaultMessage());
             }
 
