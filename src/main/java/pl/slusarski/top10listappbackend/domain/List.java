@@ -1,6 +1,10 @@
 package pl.slusarski.top10listappbackend.domain;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -12,11 +16,17 @@ public class List {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotBlank(message = "List name is required")
     private String listName;
+    @NotBlank(message = "List description is required")
     private String listDescription;
+    @NotBlank(message = "List category is required")
     private String listCategory;
     private LocalDate publishDate;
 
+    @Valid
+    @NotEmpty(message = "All items are required")
+    @NotNull
     @OneToMany(cascade = CascadeType.REMOVE,
             fetch = FetchType.EAGER,
             mappedBy = "list",

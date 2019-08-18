@@ -3,6 +3,7 @@ package pl.slusarski.top10listappbackend.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +13,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotBlank(message = "Item name is required")
     private String itemName;
+    @NotBlank(message = "Item description is required")
     private String itemDescription;
 
     @ManyToOne(fetch = FetchType.EAGER,
